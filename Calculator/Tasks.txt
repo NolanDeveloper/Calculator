@@ -1,4 +1,3 @@
-FIXME: After reloading application takes previous number which was before closing but don't take
-FIXME: calculator state. So You can continue writing number even you must input new number.
+FIXME: After reloading application shoud set value in zero.
 
 TODO: Add view which will show current operation.
