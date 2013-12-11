@@ -1,0 +1,4 @@
+FIXME: After reloading application takes previous number which was before closing but don't take
+FIXME: calculator state. So You can continue writing number even you must input new number.
+
+TODO: Make custom nice UI)

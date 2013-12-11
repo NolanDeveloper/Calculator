@@ -8,8 +8,6 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-//  TODO: Make custom nice UI)
-
 public final class Calculator implements OnClickListener {
 
     public static final int MAX_NUMBER_LENGTH = 20;
