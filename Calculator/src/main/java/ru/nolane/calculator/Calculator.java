@@ -8,15 +8,13 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-//  TODO: Calculator cannot to calculate too large numbers. If it tries application has stopped.
-//  TODO: Should to limit maximum number length of textView.
-
 //  TODO: Make custom nice UI)
 
 public final class Calculator implements OnClickListener {
 
-    public static final int MAX_NUMBER_LENGTH = 11;
-    public static final int MAX_PRECISION = 5;
+    public static final int MAX_NUMBER_LENGTH = 20;
+    public static final int MAX_PRECISION = 6;
+    public static final CharSequence TOO_LONG_VALUE_TEXT = "TOO LONG VALUE";
 
     private static enum States {
         GET_NUMBER, GET_OPERATION
@@ -40,12 +38,17 @@ public final class Calculator implements OnClickListener {
     }
 
     private void AddSymbol(char c) {
-        if (_value.length() < MAX_NUMBER_LENGTH)
+        if (_value.length() + 1 < MAX_NUMBER_LENGTH)
             _value.append(Character.toString(c));
     }
 
     private BigDecimal GetValue() {
-        return new BigDecimal(_value.getText().toString());
+        if (_value.getText() == TOO_LONG_VALUE_TEXT) {
+            _currentOperation = Operations.NOP;
+            _leftArgument = BigDecimal.valueOf(0);
+            return BigDecimal.valueOf(0);
+        } else
+            return new BigDecimal(_value.getText().toString());
     }
 
     private void SetZero() {
@@ -62,9 +65,9 @@ public final class Calculator implements OnClickListener {
         else {
             value = value.stripTrailingZeros();
             if (value.setScale(0, RoundingMode.HALF_UP).compareTo(value) == 0) {
-                _value.setText(value.toBigInteger().toString());
+                _value.setText(value.toBigInteger().toString().length() < MAX_NUMBER_LENGTH ? value.toBigInteger().toString() : TOO_LONG_VALUE_TEXT);
             } else {
-                _value.setText(value.toString());
+                _value.setText(value.toString().length() < MAX_NUMBER_LENGTH ? value.toString() : TOO_LONG_VALUE_TEXT);
                 _value.getEllipsize();
             }
         }
