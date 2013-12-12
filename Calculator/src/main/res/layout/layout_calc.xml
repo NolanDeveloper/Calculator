@@ -10,9 +10,9 @@
     <ru.nolane.calculator.CustomHorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="117dp"
-        android:paddingLeft="@dimen/number_textView_margin"
-        android:paddingRight="@dimen/number_textView_margin"
+        android:layout_height="@dimen/number_view_height"
+        android:paddingLeft="@dimen/number_view_margin"
+        android:paddingRight="@dimen/number_view_margin"
         android:background="@color/value_background">
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_gravity="right|center_vertical"
             android:singleLine="true"
             android:text="0"
-            android:textSize="30dp"
+            android:textSize="@dimen/number_view_text_size"
             android:ellipsize="marquee"
             android:focusable="true"
             android:textColor="@color/value" />

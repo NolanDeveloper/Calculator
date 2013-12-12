@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="number_button_text_size">30dp</dimen>
-    <dimen name="text_button_text_size">13dp</dimen>
-    <dimen name="number_textView_margin">10dp</dimen>
+    <dimen name="number_view_margin">10dp</dimen>
+    <dimen name="number_view_height">120dp</dimen>
+    <dimen name="number_view_text_size">30dp</dimen>
     <dimen name="button_separator_line_width">0.25dp</dimen>
 </resources>
