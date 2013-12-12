@@ -1,4 +1,4 @@
-FIXME: After reloading application shoud set value in zero.
+FIXME: After reloading application app should set value in zero.
 
 FIXME: Trying to make operation between two too long values leads to crush.
 
