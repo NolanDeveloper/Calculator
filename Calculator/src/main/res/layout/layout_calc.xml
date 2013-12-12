@@ -41,8 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="power"
-            android:textSize="@dimen/text_button_text_size"
+            android:text="x^y"
+            android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
@@ -52,8 +52,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="sqrt"
-            android:textSize="@dimen/text_button_text_size"
+            android:text="√x"
+            android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
@@ -63,19 +63,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Delete"
-            android:textSize="@dimen/text_button_text_size"
+            android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:textColor="@color/button_text"
+            android:text="←" />
 
         <Button
             android:id="@+id/buttonClear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Clear"
-            android:textSize="@dimen/text_button_text_size"
+            android:text="C"
+            android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
@@ -93,7 +93,7 @@
 
         <Button
             android:id="@+id/button7"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="7"
@@ -104,7 +104,7 @@
 
         <Button
             android:id="@+id/button8"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="8"
@@ -115,7 +115,7 @@
 
         <Button
             android:id="@+id/button9"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="9"
@@ -126,7 +126,7 @@
 
         <Button
             android:id="@+id/buttonDiv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="/"
@@ -147,7 +147,7 @@
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="4"
@@ -158,7 +158,7 @@
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="5"
@@ -169,7 +169,7 @@
 
         <Button
             android:id="@+id/button6"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="6"
@@ -180,7 +180,7 @@
 
         <Button
             android:id="@+id/buttonMul"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="*"
@@ -201,7 +201,7 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1"
@@ -212,7 +212,7 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="2"
@@ -223,7 +223,7 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="3"
@@ -234,7 +234,7 @@
 
         <Button
             android:id="@+id/buttonMinus"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="-"
@@ -255,7 +255,7 @@
 
         <Button
             android:id="@+id/button0"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="0"
@@ -266,7 +266,7 @@
 
         <Button
             android:id="@+id/buttonPoint"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="."
@@ -277,7 +277,7 @@
 
         <Button
             android:id="@+id/buttonAssign"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="="
@@ -288,7 +288,7 @@
 
         <Button
             android:id="@+id/buttonPlus"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="+"
