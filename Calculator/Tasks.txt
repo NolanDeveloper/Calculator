@@ -1,3 +1,1 @@
-TODO: Add view which will show current operation.
 
-TODO: Add support changing signs.
