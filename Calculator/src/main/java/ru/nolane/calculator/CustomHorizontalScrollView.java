@@ -3,6 +3,7 @@ package ru.nolane.calculator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -78,6 +79,12 @@ public class CustomHorizontalScrollView extends HorizontalScrollView {
     public void scrollTo(int x, int y) {
         if (mAutoScrolling) return;
         super.scrollTo(x, y);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == ev.ACTION_UP) callOnClick();
+        return super.onTouchEvent(ev);
     }
 
 }

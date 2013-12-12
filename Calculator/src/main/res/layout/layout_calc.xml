@@ -8,6 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ru.nolane.calculator.CustomHorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
         android:layout_height="117dp"
         android:paddingLeft="@dimen/number_textView_margin"

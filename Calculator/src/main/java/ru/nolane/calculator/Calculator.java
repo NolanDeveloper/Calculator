@@ -22,39 +22,43 @@ public final class Calculator implements OnClickListener {
         PLUS, MINUS, DIV, MUL, POW, NOP
     }
 
-    private TextView _value;
+    private TextView _numberTextView;
     private States _currentState;
     private Operations _currentOperation;
     private BigDecimal _leftArgument;
 
-    public Calculator(TextView value) {
+    public Calculator(TextView numberTextView) {
         super();
-        _value = value;
+        _numberTextView = numberTextView;
         _leftArgument = new BigDecimal("0");
         _currentState = States.GET_NUMBER;
         _currentOperation = Operations.NOP;
     }
 
     private void AddSymbol(char c) {
-        if (_value.length() + 1 < MAX_NUMBER_LENGTH)
-            _value.append(Character.toString(c));
+        if (_numberTextView.length() + 1 < MAX_NUMBER_LENGTH)
+            _numberTextView.append(Character.toString(c));
     }
 
     private BigDecimal GetValue() {
-        if (_value.getText() == TOO_LONG_VALUE_TEXT) {
+        if (_numberTextView.getText() == TOO_LONG_VALUE_TEXT) {
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.valueOf(0);
             return BigDecimal.valueOf(0);
         } else
-            return new BigDecimal(_value.getText().toString());
+            return new BigDecimal(_numberTextView.getText().toString());
     }
 
     private void SetZero() {
-        _value.setText("0");
+        _numberTextView.setText("0");
     }
 
     private void Clear() {
-        _value.setText(null);
+        _numberTextView.setText(null);
+    }
+
+    private static boolean IsInteger(BigDecimal number) {
+        return number.setScale(0, RoundingMode.HALF_UP).compareTo(number) == 0;
     }
 
     private void SetValue(BigDecimal value) {
@@ -62,11 +66,11 @@ public final class Calculator implements OnClickListener {
             SetZero();
         else {
             value = value.stripTrailingZeros();
-            if (value.setScale(0, RoundingMode.HALF_UP).compareTo(value) == 0) {
-                _value.setText(value.toBigInteger().toString().length() < MAX_NUMBER_LENGTH ? value.toBigInteger().toString() : TOO_LONG_VALUE_TEXT);
+            if (IsInteger(value)) {
+                _numberTextView.setText(value.toBigInteger().toString().length() < MAX_NUMBER_LENGTH ? value.toBigInteger().toString() : TOO_LONG_VALUE_TEXT);
             } else {
-                _value.setText(value.toString().length() < MAX_NUMBER_LENGTH ? value.toString() : TOO_LONG_VALUE_TEXT);
-                _value.getEllipsize();
+                _numberTextView.setText(value.toString().length() < MAX_NUMBER_LENGTH ? value.toString() : TOO_LONG_VALUE_TEXT);
+                _numberTextView.getEllipsize();
             }
         }
     }
@@ -97,18 +101,18 @@ public final class Calculator implements OnClickListener {
                 result = _leftArgument.subtract(rightArgument);
                 break;
             case DIV:
-                result = _leftArgument.divide(rightArgument, MAX_PRECISION, RoundingMode.FLOOR);
+                result = _leftArgument.divide(rightArgument, MAX_PRECISION, RoundingMode.HALF_UP);
                 result = result.stripTrailingZeros();
                 break;
             case MUL:
                 result = _leftArgument.multiply(rightArgument);
                 break;
             case POW:
-                if (rightArgument.setScale(0, RoundingMode.HALF_UP).compareTo(rightArgument) == 0) // is integer value?
+                if (IsInteger(rightArgument))
                     result = pow(_leftArgument, rightArgument.intValue());
                 else
                     result = BigDecimal.valueOf(Math.pow(_leftArgument.doubleValue(),
-                            rightArgument.doubleValue()));
+                            rightArgument.doubleValue())).setScale(MAX_PRECISION, RoundingMode.HALF_UP);
                 break;
             case NOP:
                 break;
@@ -124,7 +128,7 @@ public final class Calculator implements OnClickListener {
                     _currentState = States.GET_NUMBER;
                     Clear();
                 }
-                if (_value.getText().toString().compareTo("0") != 0)
+                if (_numberTextView.getText().toString().compareTo("0") != 0)
                     AddSymbol('0');
                 break;
             case R.id.button1:
@@ -140,14 +144,14 @@ public final class Calculator implements OnClickListener {
                     _currentState = States.GET_NUMBER;
                     Clear();
                 }
-                if (_value.getText().toString().compareTo("0") == 0)
+                if (_numberTextView.getText().toString().compareTo("0") == 0)
                     Clear();
                 AddSymbol(((Button) v).getText().charAt(0));
                 break;
             case R.id.buttonPoint:
                 if (_currentState != States.GET_NUMBER)
                     _currentState = States.GET_NUMBER;
-                if (!_value.getText().toString().contains(Character.toString('.')))
+                if (!_numberTextView.getText().toString().contains(Character.toString('.')))
                     AddSymbol('.');
                 break;
             case R.id.buttonPlus:
@@ -191,7 +195,7 @@ public final class Calculator implements OnClickListener {
                 _currentOperation = Operations.POW;
                 break;
             case R.id.buttonSqrt:
-                _leftArgument = Calculate();
+                _leftArgument = GetValue();
                 _leftArgument = BigDecimal.valueOf(Math.sqrt(_leftArgument.doubleValue()));
                 _leftArgument = _leftArgument.setScale(MAX_PRECISION, RoundingMode.FLOOR);
                 _leftArgument = _leftArgument.stripTrailingZeros();
@@ -212,20 +216,26 @@ public final class Calculator implements OnClickListener {
                 SetZero();
                 break;
             case R.id.buttonDelete:
-                if (_value.getText().length() > 1) {
+                if (_numberTextView.getText().length() > 1) {
                     _currentState = States.GET_NUMBER;
-                    _value.setText(_value.getText().toString().substring(0, _value.length() - 1));
+                    _numberTextView.setText(_numberTextView.getText().toString().substring(0, _numberTextView.length() - 1));
                     _leftArgument = GetValue();
-                } else if (_value.getText().length() == 1)
+                } else if (_numberTextView.getText().length() == 1)
                     SetZero();
+                break;
+            case R.id.horizontalScrollView:
+                if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0) {
+                    _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
+                    _leftArgument = GetValue();
+                }
                 break;
         }
     }
 
     public void BindView(TextView text) {
-        CharSequence content = _value.getText();
-        _value = text;
-        _value.setText(content);
+        CharSequence content = _numberTextView.getText();
+        _numberTextView = text;
+        _numberTextView.setText(content);
 
     }
 
