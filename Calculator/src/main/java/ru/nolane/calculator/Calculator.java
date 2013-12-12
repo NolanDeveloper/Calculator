@@ -71,6 +71,21 @@ public final class Calculator implements OnClickListener {
         }
     }
 
+    private static BigDecimal pow(BigDecimal base, int power) {
+        if (power == 0)
+            return BigDecimal.valueOf(1);
+        else if (power == 1)
+            return base;
+        else if (power < 0)
+            return BigDecimal.valueOf(1).divide(pow(base, -power));
+        else {
+            BigDecimal result = new BigDecimal(1);
+            for (int i = 0; i < power; i++)
+                result = result.multiply(base);
+            return result;
+        }
+    }
+
     private BigDecimal Calculate() {
         BigDecimal rightArgument = GetValue();
         BigDecimal result = rightArgument;
@@ -89,8 +104,11 @@ public final class Calculator implements OnClickListener {
                 result = _leftArgument.multiply(rightArgument);
                 break;
             case POW:
-                result = BigDecimal.valueOf(Math.pow(_leftArgument.doubleValue(),
-                        rightArgument.doubleValue()));
+                if (rightArgument.setScale(0, RoundingMode.HALF_UP).compareTo(rightArgument) == 0) // is integer value?
+                    result = pow(_leftArgument, rightArgument.intValue());
+                else
+                    result = BigDecimal.valueOf(Math.pow(_leftArgument.doubleValue(),
+                            rightArgument.doubleValue()));
                 break;
             case NOP:
                 break;
