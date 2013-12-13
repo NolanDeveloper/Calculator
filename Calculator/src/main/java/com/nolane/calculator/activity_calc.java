@@ -1,4 +1,4 @@
-package ru.nolane.calculator;
+package com.nolane.calculator;
 
 import android.app.Activity;
 import android.os.Bundle;

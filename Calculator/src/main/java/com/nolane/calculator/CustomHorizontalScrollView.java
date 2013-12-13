@@ -1,4 +1,4 @@
-package ru.nolane.calculator;
+package com.nolane.calculator;
 
 import android.content.Context;
 import android.util.AttributeSet;

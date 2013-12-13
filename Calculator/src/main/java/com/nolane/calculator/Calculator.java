@@ -1,4 +1,4 @@
-package ru.nolane.calculator;
+package com.nolane.calculator;
 
 import android.view.View;
 import android.view.View.OnClickListener;

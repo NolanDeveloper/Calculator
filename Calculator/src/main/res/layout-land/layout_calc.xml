@@ -7,7 +7,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
-    <ru.nolane.calculator.CustomHorizontalScrollView
+    <com.nolane.calculator.CustomHorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/number_view_height"
         android:paddingLeft="@dimen/number_view_margin"
@@ -27,7 +28,7 @@
             android:textColor="@color/value"
             android:autoText="false" />
 
-    </ru.nolane.calculator.CustomHorizontalScrollView>
+    </com.nolane.calculator.CustomHorizontalScrollView>
 
     <TableRow
         android:id="@+id/tableRow2"
@@ -83,15 +84,16 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonPow"
+            android:id="@+id/buttonClear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="x^y"
+            android:text="C"
             android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:textColor="@color/button_text"
+            android:layout_column="4" />
 
     </TableRow>
 
@@ -148,15 +150,15 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonSqrt"
+            android:id="@+id/buttonDelete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="√x"
             android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:textColor="@color/button_text"
+            android:text="←" />
 
     </TableRow>
 
@@ -213,15 +215,15 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonDelete"
+            android:id="@+id/buttonSqrt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:text="√x"
             android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text"
-            android:text="←" />
+            android:textColor="@color/button_text" />
 
     </TableRow>
 
@@ -278,16 +280,15 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonClear"
+            android:id="@+id/buttonPow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="C"
+            android:text="x^y"
             android:textSize="@dimen/number_button_text_size"
             android:background="@drawable/button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text"
-            android:layout_column="4" />
+            android:textColor="@color/button_text" />
 
     </TableRow>
 
