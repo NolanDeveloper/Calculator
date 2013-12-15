@@ -12,10 +12,12 @@ import java.math.RoundingMode;
 @SuppressWarnings("ConstantConditions")
 public final class Calculator implements OnClickListener {
 
-    public static final int MAX_NUMBER_LENGTH = 20;
+    public static final int MAX_NUMBER_LENGTH = 30;
     public static final int MAX_PRECISION = 6;
-    public static final CharSequence TOO_LONG_VALUE_TEXT = "...";
+    public static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
     public static final CharSequence INFINITY_TEXT = "∞";
+
+    public static BigDecimal MaxNumber;
 
     private class ZeroDivisionException extends ArithmeticException {
     }
@@ -39,11 +41,41 @@ public final class Calculator implements OnClickListener {
 
     public Calculator(TextView numberTextView, Activity activity) {
         super();
+        if (MaxNumber == null) {
+            String maxNumber = "";
+            for (int i = 0; i < MAX_NUMBER_LENGTH; i++)
+                maxNumber += '9';
+            MaxNumber = new BigDecimal(maxNumber);
+        }
         _activity = activity;
         _numberTextView = numberTextView;
         _leftArgument = new BigDecimal("0");
         _currentState = States.GET_NUMBER;
         _currentOperation = Operations.NOP;
+    }
+
+    private static BigDecimal pow(BigDecimal base, int power) {
+        if (power == 0)
+            return BigDecimal.valueOf(1);
+        else if (power == 1)
+            return base;
+        else if (power < 0)
+            return BigDecimal.valueOf(1).divide(pow(base, -power));
+        else {
+            BigDecimal result = new BigDecimal(1);
+            for (int i = 0; i < power && result.toString().length() < MAX_NUMBER_LENGTH; i++)
+                result = result.multiply(base);
+            return result;
+        }
+    }
+
+    @SuppressWarnings("UnusedAssignment")
+    private static BigDecimal round(BigDecimal number) {
+        return number.setScale(MAX_PRECISION, RoundingMode.HALF_UP);
+    }
+
+    private static boolean IsInteger(BigDecimal number) {
+        return number.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(number) == 0;
     }
 
     private void AddSymbol(char c) {
@@ -66,10 +98,6 @@ public final class Calculator implements OnClickListener {
         _numberTextView.setText(null);
     }
 
-    private static boolean IsInteger(BigDecimal number) {
-        return number.setScale(0, RoundingMode.HALF_UP).compareTo(number) == 0;
-    }
-
     private void SetValue(BigDecimal value) {
         if (value.compareTo(BigDecimal.valueOf(0)) == 0)
             SetZero();
@@ -86,21 +114,6 @@ public final class Calculator implements OnClickListener {
         }
     }
 
-    private static BigDecimal pow(BigDecimal base, int power) {
-        if (power == 0)
-            return BigDecimal.valueOf(1);
-        else if (power == 1)
-            return base;
-        else if (power < 0)
-            return BigDecimal.valueOf(1).divide(pow(base, -power));
-        else {
-            BigDecimal result = new BigDecimal(1);
-            for (int i = 0; i < power; i++)
-                result = result.multiply(base);
-            return result;
-        }
-    }
-
     private BigDecimal Calculate() throws ZeroDivisionException {
         BigDecimal rightArgument = GetValue();
         BigDecimal result = rightArgument;
@@ -113,7 +126,8 @@ public final class Calculator implements OnClickListener {
                 break;
             case DIV:
                 if (rightArgument.compareTo(BigDecimal.ZERO) != 0) {
-                    result = _leftArgument.divide(rightArgument, MAX_PRECISION, RoundingMode.HALF_UP);
+                    result = _leftArgument.divide(rightArgument, MAX_PRECISION,
+                            BigDecimal.ROUND_HALF_UP);
                     result = result.stripTrailingZeros();
                 } else {
                     throw new ZeroDivisionException();
@@ -123,15 +137,24 @@ public final class Calculator implements OnClickListener {
                 result = _leftArgument.multiply(rightArgument);
                 break;
             case POW:
-                if (IsInteger(rightArgument))
-                    result = pow(_leftArgument, rightArgument.intValue());
-                else
-                    result = BigDecimal.valueOf(Math.pow(_leftArgument.doubleValue(),
-                            rightArgument.doubleValue())).setScale(MAX_PRECISION, RoundingMode.HALF_UP);
-                break;
-            case NOP:
+                if ((_leftArgument.compareTo(BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(),
+                        0.5)).setScale(MAX_PRECISION, RoundingMode.HALF_UP)) == 0 &&
+                        rightArgument.compareTo(BigDecimal.valueOf(2)) > 0) ||
+                        (rightArgument.compareTo(BigDecimal.valueOf(50)) > 0))
+                    throw new TooLongValueException();
+                else {
+                    if (IsInteger(rightArgument))
+                        result = pow(_leftArgument, rightArgument.intValue());
+                    else {
+                        result = BigDecimal.valueOf(Math.pow(_leftArgument.doubleValue(),
+                                rightArgument.doubleValue()));
+                    }
+                }
                 break;
         }
+        result = round(result);
+        if (result.toString().length() > MAX_NUMBER_LENGTH)
+            throw new TooLongValueException();
         return result;
     }
 
@@ -213,8 +236,7 @@ public final class Calculator implements OnClickListener {
                 case R.id.buttonSqrt:
                     _leftArgument = GetValue();
                     _leftArgument = BigDecimal.valueOf(Math.sqrt(_leftArgument.doubleValue()));
-                    _leftArgument = _leftArgument.setScale(MAX_PRECISION, RoundingMode.FLOOR);
-                    _leftArgument = _leftArgument.stripTrailingZeros();
+                    round(_leftArgument);
                     _currentState = States.GET_OPERATION;
                     _currentOperation = Operations.NOP;
                     SetValue(_leftArgument);
@@ -240,7 +262,7 @@ public final class Calculator implements OnClickListener {
                         SetZero();
                     break;
                 case R.id.horizontalScrollView:
-                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0) {
+                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0 && _numberTextView.length() < MAX_NUMBER_LENGTH - 1) {
                         _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
                         _leftArgument = GetValue();
                     }
