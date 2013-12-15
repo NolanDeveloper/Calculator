@@ -13,7 +13,7 @@ public class activity_calc extends Activity {
         setContentView(R.layout.layout_calc);
         TextView textView = (TextView) findViewById(R.id.textViewCurNum);
         if (_calc == null)
-            _calc = new Calculator(textView);
+            _calc = new Calculator(textView, this);
         else
             _calc.BindView(textView);
         findViewById(R.id.horizontalScrollView).setOnClickListener(_calc);
@@ -41,7 +41,6 @@ public class activity_calc extends Activity {
 
     @Override
     public void onStop() {
-
         super.onStop();
     }
 }
