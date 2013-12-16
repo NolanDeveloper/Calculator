@@ -63,7 +63,7 @@ public final class Calculator implements OnClickListener {
             return BigDecimal.valueOf(1).divide(pow(base, -power));
         else {
             BigDecimal result = new BigDecimal(1);
-            for (int i = 0; i < power && result.toString().length() < MAX_NUMBER_LENGTH; i++)
+            for (int i = 0; i < power; i++)
                 result = result.multiply(base);
             return result;
         }
