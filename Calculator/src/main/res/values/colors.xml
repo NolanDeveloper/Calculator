@@ -3,7 +3,9 @@
     <color name="button_border">#ff97dbff</color>
     <color name="button_pressed">#ff68cffb</color>
     <color name="button_focused">#ff4066e8</color>
-    <color name="button_normal">#ff009eef</color>
+    <color name="number_button_normal">#ff0090e0</color>
+    <color name="operation_button_normal">#ff0079c9</color>
+    <color name="functional_button_normal">#ff00a6f5</color>
     <color name="button_text">#ffffffff</color>
     <color name="value_background">#ffffffff</color>
     <color name="value">#ff232323</color>

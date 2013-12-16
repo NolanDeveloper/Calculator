@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:text="7"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:text="8"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:text="9"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -79,7 +79,7 @@
             android:layout_weight="1"
             android:text="/"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:text="C"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/functional_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text"
             android:layout_column="4" />
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:text="4"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -123,7 +123,7 @@
             android:layout_weight="1"
             android:text="5"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -134,7 +134,7 @@
             android:layout_weight="1"
             android:text="6"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -145,7 +145,7 @@
             android:layout_weight="1"
             android:text="*"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -155,7 +155,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/functional_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text"
             android:text="←" />
@@ -177,7 +177,7 @@
             android:layout_weight="1"
             android:text="1"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -188,7 +188,7 @@
             android:layout_weight="1"
             android:text="2"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -199,7 +199,7 @@
             android:layout_weight="1"
             android:text="3"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -210,7 +210,7 @@
             android:layout_weight="1"
             android:text="-"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -221,7 +221,7 @@
             android:layout_weight="1"
             android:text="√x"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -242,7 +242,7 @@
             android:layout_weight="1"
             android:text="0"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -253,7 +253,7 @@
             android:layout_weight="1"
             android:text="."
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/number_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -264,7 +264,7 @@
             android:layout_weight="1"
             android:text="="
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -275,7 +275,7 @@
             android:layout_weight="1"
             android:text="+"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
@@ -286,7 +286,7 @@
             android:layout_weight="1"
             android:text="x^y"
             android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/button_background_selector"
+            android:background="@drawable/operation_button_background_selector"
             android:layout_margin="@dimen/button_separator_line_width"
             android:textColor="@color/button_text" />
 
