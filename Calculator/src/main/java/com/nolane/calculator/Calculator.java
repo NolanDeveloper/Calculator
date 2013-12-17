@@ -19,10 +19,10 @@ public final class Calculator implements OnClickListener {
 
     public static BigDecimal MaxNumber;
 
-    private class ZeroDivisionException extends ArithmeticException {
+    private static class ZeroDivisionException extends ArithmeticException {
     }
 
-    private class TooLongValueException extends ArithmeticException {
+    private static class TooLongValueException extends ArithmeticException {
     }
 
     private static enum States {
@@ -54,7 +54,7 @@ public final class Calculator implements OnClickListener {
         _currentOperation = Operations.NOP;
     }
 
-    private static BigDecimal pow(BigDecimal base, int power) {
+    private static BigDecimal pow(BigDecimal base, int power) throws TooLongValueException {
         if (power == 0)
             return BigDecimal.valueOf(1);
         else if (power == 1)
@@ -63,8 +63,14 @@ public final class Calculator implements OnClickListener {
             return BigDecimal.valueOf(1).divide(pow(base, -power));
         else {
             BigDecimal result = new BigDecimal(1);
-            for (int i = 0; i < power; i++)
-                result = result.multiply(base);
+            for (int i = 0; i < power; i++) {
+                result = result.multiply(base).stripTrailingZeros();
+                if (result.toString().length() > MAX_NUMBER_LENGTH) {
+                    result = round(result);
+                    if (result.toString().length() > MAX_NUMBER_LENGTH)
+                        throw new TooLongValueException();
+                }
+            }
             return result;
         }
     }
@@ -139,8 +145,7 @@ public final class Calculator implements OnClickListener {
             case POW:
                 if ((_leftArgument.compareTo(BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(),
                         0.5)).setScale(MAX_PRECISION, RoundingMode.HALF_UP)) == 0 &&
-                        rightArgument.compareTo(BigDecimal.valueOf(2)) > 0) ||
-                        (rightArgument.compareTo(BigDecimal.valueOf(50)) > 0))
+                        rightArgument.compareTo(BigDecimal.valueOf(2)) > 0))
                     throw new TooLongValueException();
                 else {
                     if (IsInteger(rightArgument))
@@ -262,10 +267,8 @@ public final class Calculator implements OnClickListener {
                         SetZero();
                     break;
                 case R.id.horizontalScrollView:
-                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0 && _numberTextView.length() < MAX_NUMBER_LENGTH - 1) {
+                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0 && _numberTextView.length() < MAX_NUMBER_LENGTH - 1)
                         _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
-                        _leftArgument = GetValue();
-                    }
                     break;
             }
         } catch (ZeroDivisionException ex) {
