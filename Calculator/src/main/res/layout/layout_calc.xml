@@ -32,7 +32,7 @@
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:baselineAligned="false"
         android:background="@color/button_border">
@@ -84,9 +84,61 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/button_border">
+
+        <Button
+            android:id="@+id/buttonM"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="M"
+            android:textSize="@dimen/number_button_text_size"
+            android:background="@drawable/operation_button_background_selector"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:textColor="@color/button_text" />
+
+        <Button
+            android:id="@+id/buttonMplus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="M+"
+            android:textSize="@dimen/number_button_text_size"
+            android:background="@drawable/operation_button_background_selector"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:textColor="@color/button_text" />
+
+        <Button
+            android:id="@+id/buttonMminus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="M-"
+            android:textSize="@dimen/number_button_text_size"
+            android:background="@drawable/operation_button_background_selector"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:textColor="@color/button_text" />
+
+        <Button
+            android:id="@+id/buttonPlusMinus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="+/-"
+            android:textSize="@dimen/number_button_text_size"
+            android:background="@drawable/operation_button_background_selector"
+            android:layout_margin="@dimen/button_separator_line_width"
+            android:textColor="@color/button_text" />
+    </TableRow>
+
+    <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:baselineAligned="false"
@@ -141,7 +193,7 @@
     <TableRow
         android:id="@+id/tableRow3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:baselineAligned="false"
         android:background="@color/button_border">
@@ -195,7 +247,7 @@
     <TableRow
         android:id="@+id/tableRow4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:baselineAligned="false"
         android:background="@color/button_border">
@@ -249,7 +301,7 @@
     <TableRow
         android:id="@+id/tableRow5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:baselineAligned="false"
         android:background="@color/button_border">
