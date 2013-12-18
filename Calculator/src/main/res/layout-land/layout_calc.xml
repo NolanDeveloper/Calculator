@@ -31,15 +31,15 @@
     </com.nolane.calculator.CustomHorizontalScrollView>
 
     <TableRow
-        android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:baselineAligned="false"
-        android:background="@color/button_border">
+        android:background="@color/button_border"
+        android:id="@+id/tableRow1">
 
-        <Button
+    <Button
             android:id="@+id/button7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -109,7 +109,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow3"
+        android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -161,7 +161,7 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonPlusMinus"
+            android:id="@+id/buttonM"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -186,7 +186,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -262,7 +262,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow5"
+        android:id="@+id/tableRow4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
