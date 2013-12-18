@@ -244,7 +244,7 @@ public final class Calculator implements OnClickListener {
                 case R.id.buttonSqrt:
                     _leftArgument = GetValue();
                     _leftArgument = BigDecimal.valueOf(Math.sqrt(_leftArgument.doubleValue()));
-                    round(_leftArgument);
+                    _leftArgument = round(_leftArgument);
                     _currentState = States.GET_OPERATION;
                     _currentOperation = Operations.NOP;
                     SetValue(_leftArgument);
