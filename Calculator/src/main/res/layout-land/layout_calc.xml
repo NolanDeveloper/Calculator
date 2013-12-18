@@ -84,7 +84,7 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonM"
+            android:id="@+id/buttonPlusMinus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -161,7 +161,7 @@
             android:textColor="@color/button_text" />
 
         <Button
-            android:id="@+id/buttonM"
+            android:id="@+id/buttonPlusMinus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

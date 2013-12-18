@@ -1,11 +1,8 @@
 package com.nolane.calculator;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -87,14 +84,6 @@ public class CustomHorizontalScrollView extends HorizontalScrollView {
     public void scrollTo(int x, int y) {
         if (mAutoScrolling) return;
         super.scrollTo(x, y);
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_UP)
-            callOnClick();
-        return super.onTouchEvent(ev);
     }
 
 }

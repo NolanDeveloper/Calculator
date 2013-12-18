@@ -16,7 +16,6 @@ public class activity_calc extends Activity {
             _calc = new Calculator(textView, this);
         else
             _calc.BindView(textView);
-        findViewById(R.id.horizontalScrollView).setOnClickListener(_calc);
         findViewById(R.id.button0).setOnClickListener(_calc);
         findViewById(R.id.button1).setOnClickListener(_calc);
         findViewById(R.id.button2).setOnClickListener(_calc);
@@ -37,6 +36,10 @@ public class activity_calc extends Activity {
         findViewById(R.id.buttonSqrt).setOnClickListener(_calc);
         findViewById(R.id.buttonDelete).setOnClickListener(_calc);
         findViewById(R.id.buttonClear).setOnClickListener(_calc);
+        findViewById(R.id.buttonM).setOnClickListener(_calc);
+        findViewById(R.id.buttonMplus).setOnClickListener(_calc);
+        findViewById(R.id.buttonMminus).setOnClickListener(_calc);
+        findViewById(R.id.buttonPlusMinus).setOnClickListener(_calc);
     }
 
     @Override

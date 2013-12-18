@@ -7,17 +7,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 
 @SuppressWarnings("ConstantConditions")
 public final class Calculator implements OnClickListener {
 
-    public static final int MAX_NUMBER_LENGTH = 30;
-    public static final int MAX_PRECISION = 6;
-    public static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
-    public static final CharSequence INFINITY_TEXT = "∞";
+    private static final int MAX_NUMBER_LENGTH = 30;
+    private static final int MAX_PRECISION = 6;
+    private static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
+    private static final CharSequence INFINITY_TEXT = "∞";
 
-    public static BigDecimal MaxNumber;
+    private static BigDecimal MaxNumber;
 
     private static class ZeroDivisionException extends ArithmeticException {
     }
@@ -38,6 +39,7 @@ public final class Calculator implements OnClickListener {
     private States _currentState;
     private Operations _currentOperation;
     private BigDecimal _leftArgument;
+    private BigDecimal _memory;
 
     public Calculator(TextView numberTextView, Activity activity) {
         super();
@@ -49,7 +51,8 @@ public final class Calculator implements OnClickListener {
         }
         _activity = activity;
         _numberTextView = numberTextView;
-        _leftArgument = new BigDecimal("0");
+        _leftArgument = new BigDecimal(BigInteger.ZERO);
+        _memory = new BigDecimal(BigInteger.ZERO);
         _currentState = States.GET_NUMBER;
         _currentOperation = Operations.NOP;
     }
@@ -266,9 +269,18 @@ public final class Calculator implements OnClickListener {
                     } else if (_numberTextView.getText().length() == 1)
                         SetZero();
                     break;
-                case R.id.horizontalScrollView:
+                case R.id.buttonPlusMinus:
                     if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0 && _numberTextView.length() < MAX_NUMBER_LENGTH - 1)
                         _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
+                    break;
+                case R.id.buttonM:
+                    SetValue(_memory);
+                    break;
+                case R.id.buttonMplus:
+                    _memory = _memory.add(GetValue());
+                    break;
+                case R.id.buttonMminus:
+                    _memory = _memory.subtract(GetValue());
                     break;
             }
         } catch (ZeroDivisionException ex) {
