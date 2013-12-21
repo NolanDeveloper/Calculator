@@ -2,6 +2,7 @@ package com.nolane.calculator;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 
 public class activity_calc extends Activity {
@@ -45,5 +46,11 @@ public class activity_calc extends Activity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* ... */
+        return super.onCreateOptionsMenu(menu);
     }
 }
