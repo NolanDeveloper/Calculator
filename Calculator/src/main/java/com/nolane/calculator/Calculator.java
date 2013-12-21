@@ -1,5 +1,7 @@
 package com.nolane.calculator;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +42,7 @@ public final class Calculator implements OnClickListener {
     private Operations _currentOperation;
     private BigDecimal _leftArgument;
     private BigDecimal _memory;
+    private ObjectAnimator _anim;
 
     public Calculator(TextView numberTextView, Activity activity) {
         super();
@@ -176,6 +179,13 @@ public final class Calculator implements OnClickListener {
     @Override
     public void onClick(View v) {
         try {
+            _anim = ObjectAnimator.ofObject(v,
+                    "backgroundColor",
+                    new ArgbEvaluator(),
+                    0xffff00ff,
+                    0xff78c5f9); // TODO: Think about it ...
+            _anim.setDuration(1000);
+            _anim.start();
             switch (v.getId()) {
                 case R.id.button0:
                     if (_currentState != States.GET_NUMBER) {
