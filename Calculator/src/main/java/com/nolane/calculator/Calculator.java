@@ -78,9 +78,16 @@ public final class Calculator implements OnClickListener {
         }
     }
 
-    @SuppressWarnings("UnusedAssignment")
+    private static int GetLength(BigDecimal value) {
+        return value.toString().length() - (value.toString().charAt(0) == '-' ? 1 : 0);
+    }
+
+    private static int GetLength(TextView value) {
+        return value.length() - (value.toString().charAt(0) == '-' ? 1 : 0);
+    }
+
     private static BigDecimal round(BigDecimal number) {
-        return number.setScale(MAX_PRECISION, RoundingMode.HALF_UP);
+        return number.setScale(MAX_PRECISION, RoundingMode.HALF_UP).stripTrailingZeros();
     }
 
     private static boolean IsInteger(BigDecimal number) {
@@ -88,7 +95,7 @@ public final class Calculator implements OnClickListener {
     }
 
     private void AddSymbol(char c) {
-        if (_numberTextView.length() + 1 < MAX_NUMBER_LENGTH)
+        if (GetLength(_numberTextView) + 1 <= MAX_NUMBER_LENGTH)
             _numberTextView.append(Character.toString(c));
     }
 
@@ -110,7 +117,7 @@ public final class Calculator implements OnClickListener {
     private void SetValue(BigDecimal value) {
         if (value.compareTo(BigDecimal.valueOf(0)) == 0)
             SetZero();
-        else if (value.toBigInteger().toString().length() > MAX_NUMBER_LENGTH)
+        else if (GetLength(value) > MAX_NUMBER_LENGTH)
             throw new TooLongValueException();
         else {
             value = value.stripTrailingZeros();
@@ -123,7 +130,7 @@ public final class Calculator implements OnClickListener {
         }
     }
 
-    private BigDecimal Calculate() throws ZeroDivisionException {
+    private BigDecimal Calculate() throws ZeroDivisionException, TooLongValueException {
         BigDecimal rightArgument = GetValue();
         BigDecimal result = rightArgument;
         switch (_currentOperation) {
@@ -146,8 +153,8 @@ public final class Calculator implements OnClickListener {
                 result = _leftArgument.multiply(rightArgument);
                 break;
             case POW:
-                if ((_leftArgument.compareTo(BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(),
-                        0.5)).setScale(MAX_PRECISION, RoundingMode.HALF_UP)) == 0 &&
+                if ((_leftArgument.compareTo(round(
+                        BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(), 0.5)))) > 0 &&
                         rightArgument.compareTo(BigDecimal.valueOf(2)) > 0))
                     throw new TooLongValueException();
                 else {
@@ -161,7 +168,7 @@ public final class Calculator implements OnClickListener {
                 break;
         }
         result = round(result);
-        if (result.toString().length() > MAX_NUMBER_LENGTH)
+        if (GetLength(result) > MAX_NUMBER_LENGTH)
             throw new TooLongValueException();
         return result;
     }
@@ -270,7 +277,7 @@ public final class Calculator implements OnClickListener {
                         SetZero();
                     break;
                 case R.id.buttonPlusMinus:
-                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0 && _numberTextView.length() < MAX_NUMBER_LENGTH - 1)
+                    if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0)
                         _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
                     break;
                 case R.id.buttonM:
@@ -285,6 +292,11 @@ public final class Calculator implements OnClickListener {
             }
         } catch (ZeroDivisionException ex) {
             _numberTextView.setText(INFINITY_TEXT);
+            _currentState = States.GET_OPERATION;
+            _currentOperation = Operations.NOP;
+            _leftArgument = BigDecimal.ZERO;
+        } catch (NumberFormatException ex) {
+            _numberTextView.setText('0');
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
