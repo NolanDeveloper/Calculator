@@ -1,10 +1,11 @@
 package com.nolane.calculator;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +29,59 @@ public final class Calculator implements OnClickListener {
     private static class TooLongValueException extends ArithmeticException {
     }
 
+    private static class CustomButtonAnimation extends Animation {
+
+        View _object;
+
+        int _from;
+        int _to;
+
+        public CustomButtonAnimation() {
+            super();
+            _object = null;
+            _from = 0;
+            _to = 0;
+        }
+
+        public void setFromColor(int from) {
+            _from = from;
+        }
+
+        public void setToColor(int to) {
+            _to = to;
+        }
+
+        public void setView(View objectToAnimate) {
+            _object = objectToAnimate;
+        }
+
+        @SuppressWarnings("RedundantCast")
+        private int interpolateColor(int a, int b, float proportion) {
+            int startA = (a >> 24) & 0xff;
+            int startR = (a >> 16) & 0xff;
+            int startG = (a >> 8) & 0xff;
+            int startB = a & 0xff;
+            int endA = (b >> 24) & 0xff;
+            int endR = (b >> 16) & 0xff;
+            int endG = (b >> 8) & 0xff;
+            int endB = b & 0xff;
+
+            return (int) ((startA + (int) (proportion * (endA - startA))) << 24) |
+                    (int) ((startR + (int) (proportion * (endR - startR))) << 16) |
+                    (int) ((startG + (int) (proportion * (endG - startG))) << 8) |
+                    (int) ((startB + (int) (proportion * (endB - startB))));
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (_object != null) {
+                _object.setBackgroundColor(interpolateColor(_from, _to, interpolatedTime));
+                _object.invalidate();
+            }
+        }
+    }
+
     private static enum States {
         GET_NUMBER, GET_OPERATION
     }
@@ -42,7 +96,6 @@ public final class Calculator implements OnClickListener {
     private Operations _currentOperation;
     private BigDecimal _leftArgument;
     private BigDecimal _memory;
-    private ObjectAnimator _anim;
 
     public Calculator(TextView numberTextView, Activity activity) {
         super();
@@ -61,7 +114,11 @@ public final class Calculator implements OnClickListener {
     }
 
     private static BigDecimal pow(BigDecimal base, int power) throws TooLongValueException {
-        if (power == 0)
+        if (base.compareTo(BigDecimal.ZERO) == 0)
+            return new BigDecimal(0);
+        else if (base.compareTo(BigDecimal.ONE) == 0)
+            return new BigDecimal(1);
+        else if (power == 0)
             return BigDecimal.valueOf(1);
         else if (power == 1)
             return base;
@@ -90,7 +147,7 @@ public final class Calculator implements OnClickListener {
     }
 
     private static BigDecimal round(BigDecimal number) {
-        return number.setScale(MAX_PRECISION, RoundingMode.HALF_UP).stripTrailingZeros();
+        return number.setScale(MAX_PRECISION, RoundingMode.HALF_UP);
     }
 
     private static boolean IsInteger(BigDecimal number) {
@@ -156,9 +213,9 @@ public final class Calculator implements OnClickListener {
                 result = _leftArgument.multiply(rightArgument);
                 break;
             case POW:
-                if ((_leftArgument.compareTo(round(
+                if (_leftArgument.compareTo(round(
                         BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(), 0.5)))) > 0 &&
-                        rightArgument.compareTo(BigDecimal.valueOf(2)) > 0))
+                        rightArgument.compareTo(BigDecimal.valueOf(2)) > 0)
                     throw new TooLongValueException();
                 else {
                     if (IsInteger(rightArgument))
@@ -179,13 +236,19 @@ public final class Calculator implements OnClickListener {
     @Override
     public void onClick(View v) {
         try {
-            _anim = ObjectAnimator.ofObject(v,
-                    "backgroundColor",
-                    new ArgbEvaluator(),
-                    0xffff00ff,
-                    0xff78c5f9); // TODO: Think about it ...
-            _anim.setDuration(1000);
-            _anim.start();
+            Animation anim = new CustomButtonAnimation();
+            ((CustomButtonAnimation) anim).setFromColor(_activity.getResources().getColor(R.color.button_pressed));
+            if (v.getTag().toString().compareTo("number_button") == 0) {
+                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.number_button_normal));
+            } else if (v.getTag().toString().compareTo("operation_button") == 0) {
+                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.operation_button_normal));
+            } else if (v.getTag().toString().compareTo("functional_button") == 0) {
+                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.functional_button_normal));
+            }
+            ((CustomButtonAnimation) anim).setView(v);
+            anim.setDuration(500);
+            anim.setInterpolator(new LinearInterpolator());
+            v.startAnimation(anim);
             switch (v.getId()) {
                 case R.id.button0:
                     if (_currentState != States.GET_NUMBER) {
@@ -316,7 +379,7 @@ public final class Calculator implements OnClickListener {
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
         } catch (NullPointerException ex) {
-            _activity.finish();
+            ex.printStackTrace();
         }
     }
 
@@ -324,7 +387,6 @@ public final class Calculator implements OnClickListener {
         CharSequence content = _numberTextView.getText();
         _numberTextView = text;
         _numberTextView.setText(content);
-
     }
 
 }

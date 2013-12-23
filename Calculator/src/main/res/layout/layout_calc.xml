@@ -10,10 +10,11 @@
     <com.nolane.calculator.CustomHorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/number_view_height"
+        android:layout_height="wrap_content"
         android:paddingLeft="@dimen/number_view_margin"
         android:paddingRight="@dimen/number_view_margin"
-        android:background="@color/value_background">
+        android:background="@color/value_background"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/textViewCurNum"
@@ -38,6 +39,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonPow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -49,6 +51,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonSqrt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -60,6 +63,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="functional_button"
             android:id="@+id/buttonDelete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -71,6 +75,7 @@
             android:text="←" />
 
         <Button
+            android:tag="functional_button"
             android:id="@+id/buttonClear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -91,6 +96,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonM"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -102,6 +108,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonMplus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -113,6 +120,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonMminus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -124,6 +132,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonPlusMinus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -144,6 +153,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -155,6 +165,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -166,6 +177,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button9"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -177,6 +189,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonDiv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -198,6 +211,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -209,6 +223,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -220,6 +235,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -231,6 +247,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonMul"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -252,6 +269,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -263,6 +281,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -274,6 +293,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -285,6 +305,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonMinus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -306,6 +327,7 @@
         android:background="@color/button_border">
 
         <Button
+            android:tag="number_button"
             android:id="@+id/button0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -317,6 +339,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="number_button"
             android:id="@+id/buttonPoint"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -328,6 +351,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonAssign"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -339,6 +363,7 @@
             android:textColor="@color/button_text" />
 
         <Button
+            android:tag="operation_button"
             android:id="@+id/buttonPlus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
