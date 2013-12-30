@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/menu_item_set_precision"
+            android:title="@string/text_set_precision_item" />
+        <item
+            android:id="@+id/menu_item_about"
+            android:title="@string/text_about_item" />
+    </group>
+</menu>

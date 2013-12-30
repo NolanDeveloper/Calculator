@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Калькулятор</string>
+    <!-- Menu items -->
+    <string name="text_set_precision_item">Точность</string>
+    <string name="text_about_item">О программе</string>
+    <!-- Global dialog items -->
+    <string name="text_cancel_button">Отмена</string>
+    <string name="text_ok_button">ОК</string>
+    <!-- Precision dialog -->
+    <string name="text_precision">разрядов</string>
 </resources>

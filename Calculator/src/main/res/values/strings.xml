@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calculator</string>
+    <!-- Menu items -->
+    <string name="text_set_precision_item">Set precision</string>
+    <string name="text_about_item">About</string>
+    <!-- Global dialog items -->
+    <string name="text_cancel_button">Cancel</string>
+    <string name="text_ok_button">OK</string>
+    <!-- Precision dialog -->
+    <string name="text_precision">digits after point</string>
 </resources>
