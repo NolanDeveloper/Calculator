@@ -18,6 +18,7 @@ import java.math.RoundingMode;
 public final class Calculator implements OnClickListener {
 
     private static final int MAX_NUMBER_LENGTH = 30;
+    private static final CharSequence WRONG_ARGUMENT = "wrong argument";
     private static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
     private static final CharSequence INFINITY_TEXT = "∞";
 
@@ -170,7 +171,9 @@ public final class Calculator implements OnClickListener {
     }
 
     private BigDecimal GetValue() {
-        if (_numberTextView.getText() == TOO_LONG_VALUE_TEXT || _numberTextView.getText() == INFINITY_TEXT) {
+        if (_numberTextView.getText() == TOO_LONG_VALUE_TEXT ||
+                _numberTextView.getText() == INFINITY_TEXT ||
+                _numberTextView.getText() == WRONG_ARGUMENT) {
             return BigDecimal.ZERO;
         } else
             return new BigDecimal(_numberTextView.getText().toString());
@@ -286,8 +289,10 @@ public final class Calculator implements OnClickListener {
                     AddSymbol(((Button) v).getText().charAt(0));
                     break;
                 case R.id.buttonPoint:
-                    if (_currentState != States.GET_NUMBER)
+                    if (_currentState != States.GET_NUMBER) {
                         _currentState = States.GET_NUMBER;
+                        SetZero();
+                    }
                     if (!_numberTextView.getText().toString().contains(Character.toString('.')))
                         AddSymbol('.');
                     break;
@@ -375,6 +380,11 @@ public final class Calculator implements OnClickListener {
                     _memory = _memory.subtract(GetValue());
                     break;
             }
+        } catch (SquareRootOfNegativeNumber ex) {
+            _numberTextView.setText(WRONG_ARGUMENT);
+            _currentState = States.GET_OPERATION;
+            _currentOperation = Operations.NOP;
+            _leftArgument = BigDecimal.ZERO;
         } catch (ArithmeticException ex) {
             _numberTextView.setText(INFINITY_TEXT);
             _currentState = States.GET_OPERATION;
