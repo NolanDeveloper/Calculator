@@ -107,7 +107,7 @@ public class activity_calc extends Activity {
     }
 
     private int GetPrecision() {
-        return getPreferences(MODE_MULTI_PROCESS).getInt("precision", 2);
+        return getPreferences(MODE_MULTI_PROCESS).getInt("precision", 3);
     }
 
     @Override
