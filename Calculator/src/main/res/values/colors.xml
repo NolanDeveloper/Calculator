@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="button_border">#ff97dbff</color>
+    <color name="button_border">#ffc5eaf8</color>
     <color name="button_pressed">#ff71c8ff</color>
     <color name="button_focused">#ffc3c3c3</color>
-    <color name="number_button_normal">#ff118fff</color>
-    <color name="operation_button_normal">#ff00aeff</color>
-    <color name="functional_button_normal">#ff0075f4</color>
-    <color name="button_text">#ffffffff</color>
+    <color name="number_button_normal">#ff33b5e5</color>
+    <color name="operation_button_normal">#ff16a5d7</color>
+    <color name="functional_button_normal">#ff0099cc</color>
+    <color name="button_text">#fffff6df</color>
     <color name="value_background">#ffffffff</color>
     <color name="value">#ff232323</color>
 </resources>

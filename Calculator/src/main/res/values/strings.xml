@@ -9,4 +9,11 @@
     <string name="text_ok_button">OK</string>
     <!-- Precision dialog -->
     <string name="text_precision">digits after point</string>
+    <!-- About page -->
+    <string name="text_about_content">
+        This is calculator for Android. I tired of lots of settings and buttons in applications
+        where it don\'t should be. So I tried to make it as simple as possible. Also I\'m creating
+        it to learn android development. Thanks for reading.
+    </string>
+    <string name="text_about_copyright">Calculator © 2013 Nolane</string>
 </resources>

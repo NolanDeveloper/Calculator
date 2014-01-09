@@ -2,11 +2,42 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Base.AppCompat.Light">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+    </style>
 
+    <style name="CalculatorTableRow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:baselineAligned">false</item>
+        <item name="android:background">@color/button_border</item>
+    </style>
 
-        <!-- Customize your theme here. -->
-        <!-- <item name="android:windowActionBar">false</item>
-        <item name="android:windowTitleSize">0dp</item> -->
+    <style name="CalculatorButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/button_separator_line_width</item>
+        <item name="android:textSize">@dimen/number_button_text_size</item>
+        <item name="android:textColor">@color/button_text</item>
+    </style>
+
+    <style name="CalculatorButton.Number">
+        <item name="android:tag">number_button</item>
+        <item name="android:background">@drawable/number_button_background_selector</item>
+    </style>
+
+    <style name="CalculatorButton.Functional">
+        <item name="android:tag">functional_button</item>
+        <item name="android:background">@drawable/functional_button_background_selector</item>
+    </style>
+
+    <style name="CalculatorButton.Operation">
+        <item name="android:tag">operation_button</item>
+        <item name="android:background">@drawable/operation_button_background_selector</item>
     </style>
 
 </resources>

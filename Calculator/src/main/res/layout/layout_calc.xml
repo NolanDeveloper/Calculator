@@ -1,11 +1,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/TableLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
+    android:layout_height="match_parent">
 
     <com.nolane.calculator.CustomHorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -30,349 +26,146 @@
 
     </com.nolane.calculator.CustomHorizontalScrollView>
 
-    <TableRow
-        android:id="@+id/tableRow0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonPow"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="@dimen/number_button_text_size"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:background="@drawable/operation_button_background_selector"
-            android:text="x^y"
-            android:textColor="@color/button_text" />
+            android:text="x^y" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonSqrt"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="√x"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="√x" />
 
         <Button
-            android:tag="functional_button"
+            style="@style/CalculatorButton.Functional"
             android:id="@+id/buttonDelete"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/functional_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text"
             android:text="←" />
 
         <Button
-            android:tag="functional_button"
+            style="@style/CalculatorButton.Functional"
             android:id="@+id/buttonClear"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="C"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/functional_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="C" />
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonM"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="M"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="M" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonMplus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="M+"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="M+" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonMminus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="M-"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="M-" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonPlusMinus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="+/-"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="+/-" />
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="7"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="7" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="8"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="8" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button9"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="9"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="9" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonDiv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="/"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="/" />
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="4"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="4" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="5"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="5" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="6"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="6" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonMul"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="*"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="*" />
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="1"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="1" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="2"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="2" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="3"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="3" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonMinus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="-"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="-" />
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:baselineAligned="false"
-        android:background="@color/button_border">
+    <TableRow style="@style/CalculatorTableRow">
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/button0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="0"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="0" />
 
         <Button
-            android:tag="number_button"
+            style="@style/CalculatorButton.Number"
             android:id="@+id/buttonPoint"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="."
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/number_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="." />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonAssign"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="="
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="=" />
 
         <Button
-            android:tag="operation_button"
+            style="@style/CalculatorButton.Operation"
             android:id="@+id/buttonPlus"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="+"
-            android:textSize="@dimen/number_button_text_size"
-            android:background="@drawable/operation_button_background_selector"
-            android:layout_margin="@dimen/button_separator_line_width"
-            android:textColor="@color/button_text" />
+            android:text="+" />
 
     </TableRow>
 
