@@ -3,9 +3,8 @@
     <group>
         <item
             android:id="@+id/menu_item_set_precision"
-            android:title="@string/text_set_precision_item" />
-        <item
-            android:id="@+id/menu_item_about"
-            android:title="@string/text_about_item" />
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="@string/text_set_precision_item"
+            android:showAsAction="ifRoom" />
     </group>
 </menu>

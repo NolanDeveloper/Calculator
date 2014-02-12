@@ -18,7 +18,7 @@ import java.math.RoundingMode;
 public final class Calculator implements OnClickListener {
 
     private static final int MAX_NUMBER_LENGTH = 30;
-    private static final CharSequence WRONG_ARGUMENT = "wrong argument";
+    private static final CharSequence WRONG_ARGUMENT_TEXT = "wrong argument";
     private static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
     private static final CharSequence INFINITY_TEXT = "∞";
 
@@ -78,11 +78,11 @@ public final class Calculator implements OnClickListener {
 
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
-            super.applyTransformation(interpolatedTime, t);
             if (_object != null) {
                 _object.setBackgroundColor(interpolateColor(_from, _to, interpolatedTime));
                 _object.invalidate();
             }
+            super.applyTransformation(interpolatedTime, t);
         }
     }
 
@@ -116,12 +116,12 @@ public final class Calculator implements OnClickListener {
         _memory = new BigDecimal(BigInteger.ZERO);
         _currentState = States.GET_NUMBER;
         _currentOperation = Operations.NOP;
-        _precision = activity.getPreferences(Context.MODE_MULTI_PROCESS).getInt("precision", 2);
+        _precision = activity.getPreferences(Context.MODE_PRIVATE).getInt("precision", 2);
     }
 
     public void SetPrecision(int n) {
         _precision = n;
-        _activity.getPreferences(Context.MODE_MULTI_PROCESS).edit().putInt("precision", n).commit();
+        _activity.getPreferences(Context.MODE_PRIVATE).edit().putInt("precision", n).commit();
     }
 
     private BigDecimal pow(BigDecimal base, int power) throws TooLongValueException {
@@ -171,12 +171,13 @@ public final class Calculator implements OnClickListener {
     }
 
     private BigDecimal GetValue() {
-        if (_numberTextView.getText() == TOO_LONG_VALUE_TEXT ||
-                _numberTextView.getText() == INFINITY_TEXT ||
-                _numberTextView.getText() == WRONG_ARGUMENT) {
-            return BigDecimal.ZERO;
+        String text = _numberTextView.getText().toString();
+        if (text.compareTo(TOO_LONG_VALUE_TEXT.toString()) == 0 ||
+                text.compareTo(INFINITY_TEXT.toString()) == 0 ||
+                text.compareTo(WRONG_ARGUMENT_TEXT.toString()) == 0) {
+            return new BigDecimal(0);
         } else
-            return new BigDecimal(_numberTextView.getText().toString());
+            return new BigDecimal(text);
     }
 
     private void SetZero() {
@@ -249,16 +250,20 @@ public final class Calculator implements OnClickListener {
     @Override
     public void onClick(View v) {
         try {
-            Animation anim = new CustomButtonAnimation();
-            ((CustomButtonAnimation) anim).setFromColor(_activity.getResources().getColor(R.color.button_pressed));
+            CustomButtonAnimation anim = new CustomButtonAnimation();
+            anim.setFromColor(_activity.getResources()
+                    .getColor(R.color.button_pressed));
             if (v.getTag().toString().compareTo("number_button") == 0) {
-                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.number_button_normal));
+                anim.setToColor(_activity.getResources()
+                        .getColor(R.color.number_button_normal));
             } else if (v.getTag().toString().compareTo("operation_button") == 0) {
-                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.operation_button_normal));
+                anim.setToColor(_activity.getResources()
+                        .getColor(R.color.operation_button_normal));
             } else if (v.getTag().toString().compareTo("functional_button") == 0) {
-                ((CustomButtonAnimation) anim).setToColor(_activity.getResources().getColor(R.color.functional_button_normal));
+                anim.setToColor(_activity.getResources()
+                        .getColor(R.color.functional_button_normal));
             }
-            ((CustomButtonAnimation) anim).setView(v);
+            anim.setView(v);
             anim.setDuration(500);
             anim.setInterpolator(new LinearInterpolator());
             v.startAnimation(anim);
@@ -361,14 +366,18 @@ public final class Calculator implements OnClickListener {
                 case R.id.buttonDelete:
                     if (_numberTextView.getText().length() > 1) {
                         _currentState = States.GET_NUMBER;
-                        _numberTextView.setText(_numberTextView.getText().toString().substring(0, _numberTextView.length() - 1));
+                        _numberTextView.setText(_numberTextView.getText().toString()
+                                .substring(0, _numberTextView.length() - 1));
                         _leftArgument = GetValue();
                     } else if (_numberTextView.getText().length() == 1)
                         SetZero();
                     break;
                 case R.id.buttonPlusMinus:
                     if (GetValue().compareTo(BigDecimal.valueOf(0)) != 0)
-                        _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ? _numberTextView.getText().subSequence(1, _numberTextView.getText().length()) : "-" + _numberTextView.getText());
+                        _numberTextView.setText(_numberTextView.getText().charAt(0) == '-' ?
+                                _numberTextView.getText()
+                                        .subSequence(1, _numberTextView.getText().length()) :
+                                "-" + _numberTextView.getText());
                     break;
                 case R.id.buttonM:
                     SetValue(_memory);
@@ -381,7 +390,7 @@ public final class Calculator implements OnClickListener {
                     break;
             }
         } catch (SquareRootOfNegativeNumber ex) {
-            _numberTextView.setText(WRONG_ARGUMENT);
+            _numberTextView.setText(WRONG_ARGUMENT_TEXT);
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
@@ -390,13 +399,13 @@ public final class Calculator implements OnClickListener {
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
-        } catch (NumberFormatException ex) {
-            _numberTextView.setText('0');
+        } catch (TooLongValueException ex) {
+            _numberTextView.setText(TOO_LONG_VALUE_TEXT);
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
-        } catch (TooLongValueException ex) {
-            _numberTextView.setText(TOO_LONG_VALUE_TEXT);
+        } catch (NumberFormatException ex) {
+            _numberTextView.setText('0');
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;

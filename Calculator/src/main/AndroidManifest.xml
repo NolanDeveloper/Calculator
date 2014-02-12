@@ -21,11 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.nolane.calculator.activity_about"
-            android:screenOrientation="portrait">
-
-        </activity>
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.nolane.calculator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,60 +27,30 @@ public class activity_calc extends Activity {
             _calc = new Calculator(textView, this);
         else
             _calc.BindView(textView);
-        View.OnFocusChangeListener tempListener = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) view.setBackgroundColor(getResources().getColor(R.color.button_focused));
-            }
-        };
         findViewById(R.id.button0).setOnClickListener(_calc);
-        findViewById(R.id.button0).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button1).setOnClickListener(_calc);
-        findViewById(R.id.button1).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button2).setOnClickListener(_calc);
-        findViewById(R.id.button2).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button3).setOnClickListener(_calc);
-        findViewById(R.id.button3).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button4).setOnClickListener(_calc);
-        findViewById(R.id.button4).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button5).setOnClickListener(_calc);
-        findViewById(R.id.button5).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button6).setOnClickListener(_calc);
-        findViewById(R.id.button6).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button7).setOnClickListener(_calc);
-        findViewById(R.id.button7).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button8).setOnClickListener(_calc);
-        findViewById(R.id.button8).setOnFocusChangeListener(tempListener);
         findViewById(R.id.button9).setOnClickListener(_calc);
-        findViewById(R.id.button9).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonPoint).setOnClickListener(_calc);
-        findViewById(R.id.buttonPoint).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonPlus).setOnClickListener(_calc);
-        findViewById(R.id.buttonPlus).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonMinus).setOnClickListener(_calc);
-        findViewById(R.id.buttonMinus).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonMul).setOnClickListener(_calc);
-        findViewById(R.id.buttonMul).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonDiv).setOnClickListener(_calc);
-        findViewById(R.id.buttonDiv).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonAssign).setOnClickListener(_calc);
-        findViewById(R.id.buttonAssign).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonPow).setOnClickListener(_calc);
-        findViewById(R.id.buttonPow).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonSqrt).setOnClickListener(_calc);
-        findViewById(R.id.buttonSqrt).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonDelete).setOnClickListener(_calc);
-        findViewById(R.id.buttonDelete).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonClear).setOnClickListener(_calc);
-        findViewById(R.id.buttonClear).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonM).setOnClickListener(_calc);
-        findViewById(R.id.buttonM).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonMplus).setOnClickListener(_calc);
-        findViewById(R.id.buttonMplus).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonMminus).setOnClickListener(_calc);
-        findViewById(R.id.buttonMminus).setOnFocusChangeListener(tempListener);
         findViewById(R.id.buttonPlusMinus).setOnClickListener(_calc);
-        findViewById(R.id.buttonPlusMinus).setOnFocusChangeListener(tempListener);
     }
 
     @Override
@@ -107,7 +76,7 @@ public class activity_calc extends Activity {
     }
 
     private int GetPrecision() {
-        return getPreferences(MODE_MULTI_PROCESS).getInt("precision", 3);
+        return getPreferences(MODE_PRIVATE).getInt("precision", 3);
     }
 
     @Override
@@ -180,9 +149,6 @@ public class activity_calc extends Activity {
                         builder.setView(layout);
                     }
                     builder.show();
-                    break;
-                case R.id.menu_item_about:
-                    startActivity(new Intent(this, activity_about.class));
                     break;
             }
         } catch (Exception ex) {

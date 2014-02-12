@@ -1,7 +1,8 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.Base.AppCompat.Light">
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">0dp</item>
@@ -27,17 +28,20 @@
 
     <style name="CalculatorButton.Number">
         <item name="android:tag">number_button</item>
-        <item name="android:background">@drawable/number_button_background_selector</item>
+        <!--item name="android:background">@drawable/number_button_background_selector</item-->
+        <item name="android:background">@color/number_button_normal</item>
     </style>
 
     <style name="CalculatorButton.Functional">
         <item name="android:tag">functional_button</item>
-        <item name="android:background">@drawable/functional_button_background_selector</item>
+        <!--item name="android:background">@drawable/functional_button_background_selector</item-->
+        <item name="android:background">@color/functional_button_normal</item>
     </style>
 
     <style name="CalculatorButton.Operation">
         <item name="android:tag">operation_button</item>
-        <item name="android:background">@drawable/operation_button_background_selector</item>
+        <!--item name="android:background">@drawable/operation_button_background_selector</item-->
+        <item name="android:background">@color/operation_button_normal</item>
     </style>
 
 </resources>
