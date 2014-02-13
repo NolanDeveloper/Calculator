@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="number_button_text_size">70dp</dimen>
-    <dimen name="number_view_text_size">60dp</dimen>
+    <dimen name="number_button_text_size">80dp</dimen>
+    <dimen name="number_view_text_size">100dp</dimen>
     <dimen name="button_separator_line_width">2dp</dimen>
 </resources>

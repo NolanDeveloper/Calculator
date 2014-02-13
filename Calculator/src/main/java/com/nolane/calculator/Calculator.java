@@ -124,11 +124,6 @@ public final class Calculator implements OnClickListener {
         _precision = activity.getPreferences(Context.MODE_PRIVATE).getInt("precision", 2);
     }
 
-    public void SetPrecision(int n) {
-        _precision = n;
-        _activity.getPreferences(Context.MODE_PRIVATE).edit().putInt("precision", n).commit();
-    }
-
     private BigDecimal pow(BigDecimal base, int power) throws TooLongValueException {
         if (base.compareTo(BigDecimal.ZERO) == 0)
             return new BigDecimal(0);
@@ -155,11 +150,23 @@ public final class Calculator implements OnClickListener {
     }
 
     private static int GetLength(BigDecimal value) {
-        return value.toString().length() - (value.toString().charAt(0) == '-' ? 1 : 0);
+        int len = value.toString().replace(" ", "").length();
+        if (len == 0)
+            return 0;
+        else
+            return len - (value.toString().charAt(0) == '-' ? 1 : 0);
     }
 
     private static int GetLength(TextView value) {
-        return value.length() - (value.toString().charAt(0) == '-' ? 1 : 0);
+        int len = value.getText().toString()/*.replace(" ", "*")*/.length();
+        if (len == 0)
+            return 0;
+        else
+            return len - (value.getText().charAt(0) == '-' ? 1 : 0);
+    }
+
+    public void SetPrecision(int precision) {
+        _precision = precision;
     }
 
     private BigDecimal round(BigDecimal number) {
@@ -170,27 +177,32 @@ public final class Calculator implements OnClickListener {
         return number.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(number) == 0;
     }
 
-    private void AddSymbol(char c) {
-        if (GetLength(_numberTextView) + 1 <= MAX_NUMBER_LENGTH)
-            _numberTextView.append(Character.toString(c));
-    }
-
-    private BigDecimal GetValue() {
-        String text = _numberTextView.getText().toString();
-        if (text.compareTo(TOO_LONG_VALUE_TEXT.toString()) == 0 ||
-                text.compareTo(INFINITY_TEXT.toString()) == 0 ||
-                text.compareTo(WRONG_ARGUMENT_TEXT.toString()) == 0) {
-            return new BigDecimal(0);
-        } else
-            return new BigDecimal(text);
-    }
-
     private void SetZero() {
         _numberTextView.setText("0");
     }
 
     private void Clear() {
         _numberTextView.setText(null);
+    }
+
+    private void AddSymbol(char c) throws TooLongValueException {
+        if (GetLength(_numberTextView) + 1 <= MAX_NUMBER_LENGTH) {
+            if (c == '.')
+                _numberTextView.setText(_numberTextView.getText().toString() + c);
+            else
+                SetValue(new BigDecimal(_numberTextView.getText().toString().replace(" ", "") + c));
+        }
+    }
+
+    private BigDecimal GetValue() {
+        String text = _numberTextView.getText().toString();
+        if (text.compareTo(TOO_LONG_VALUE_TEXT.toString()) == 0 ||
+                text.compareTo(INFINITY_TEXT.toString()) == 0 ||
+                text.compareTo(WRONG_ARGUMENT_TEXT.toString()) == 0 ||
+                GetLength(_numberTextView) == 0) {
+            return new BigDecimal(0);
+        } else
+            return new BigDecimal(text.replace(" ", ""));
     }
 
     private void SetValue(BigDecimal value) throws TooLongValueException {
@@ -201,9 +213,46 @@ public final class Calculator implements OnClickListener {
         else {
             value = value.stripTrailingZeros();
             if (IsInteger(value)) {
-                _numberTextView.setText(value.toBigInteger().toString());
+                String number = value.toBigInteger().toString();
+                if (number.length() > 3) {
+                    String newText;
+                    int i;
+                    newText = number.substring(number.length() - 3, number.length());
+                    for (i = number.length() - 6; i > 0; i -= 3)
+                        newText = number.substring(i, i + 3) + ' ' + newText;
+                    if (i > -3)
+                        newText = number.substring(0, i + 3) + ' ' + newText;
+                    _numberTextView.setText(newText);
+                } else
+                    _numberTextView.setText(number);
             } else {
-                _numberTextView.setText(value.toString());
+                String integer = value.toBigInteger().toString();
+                String newInteger;
+                int i;
+
+                if (integer.length() > 3) {
+                    newInteger = integer.substring(integer.length() - 3, integer.length());
+                    for (i = integer.length() - 6; i > 0; i -= 3)
+                        newInteger = integer.substring(i, i + 3) + ' ' + newInteger;
+                    if (i > -3)
+                        newInteger = integer.substring(0, i + 3) + ' ' + newInteger;
+                } else
+                    newInteger = integer;
+
+                String real = value.toString().split("\\.")[1];
+                String newReal;
+
+                if (real.length() > 3) {
+                    newReal = real.substring(0, 3);
+                    for (i = 6; i < real.length(); i += 3)
+                        newReal = newReal + ' ' + real.substring(i - 3, i);
+                    if (i < real.length() + 3)
+                        newReal = newReal + ' ' + real.substring(i - 3, real.length());
+                } else
+                    newReal = real;
+
+
+                _numberTextView.setText(newInteger + '.' + newReal);
                 _numberTextView.getEllipsize();
             }
         }
@@ -410,7 +459,7 @@ public final class Calculator implements OnClickListener {
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;
         } catch (NumberFormatException ex) {
-            _numberTextView.setText('0');
+            _numberTextView.setText("0");
             _currentState = States.GET_OPERATION;
             _currentOperation = Operations.NOP;
             _leftArgument = BigDecimal.ZERO;

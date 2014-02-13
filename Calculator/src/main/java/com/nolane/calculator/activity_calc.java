@@ -3,12 +3,10 @@ package com.nolane.calculator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -72,6 +70,7 @@ public class activity_calc extends Activity {
 
     private void SetPrecision(int n) {
         assert (n >= MIN_PRECISION && n <= MAX_PRECISION);
+        getPreferences(MODE_PRIVATE).edit().putInt("precision", 3).commit();
         _calc.SetPrecision(n);
     }
 
@@ -79,80 +78,61 @@ public class activity_calc extends Activity {
         return getPreferences(MODE_PRIVATE).getInt("precision", 3);
     }
 
+    class PrecisionChanger implements SeekBar.OnSeekBarChangeListener, DialogInterface.OnClickListener {
+
+        private int _precision;
+        private TextView _textView;
+
+        PrecisionChanger(TextView view, Integer precision) {
+            _textView = view;
+            _precision = precision;
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            _textView.setText("0.123456789123456789".subSequence(0, i + 3));
+            _precision = i + 1;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            SetPrecision(_precision);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        try {
-            switch (item.getItemId()) {
-                case R.id.menu_item_set_precision:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(getResources().getString(R.string.text_set_precision_item))
-                            .setPositiveButton(getResources().getString(R.string.text_ok_button), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            })
-                            .setNegativeButton(getResources().getString(R.string.text_cancel_button), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            });
-                    int currentValue;
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        currentValue = GetPrecision();
-                        View layout = getLayoutInflater().inflate(R.layout.precision_dialog, null);
-                        assert layout != null;
-                        final NumberPicker numberPicker = (NumberPicker) layout.findViewById(R.id.numberPicker);
-                        numberPicker.setMinValue(MIN_PRECISION);
-                        numberPicker.setMaxValue(MAX_PRECISION);
-                        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                                SetPrecision(newVal);
-                            }
-                        });
-                        numberPicker.setValue(currentValue);
-                        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialogInterface) {
-                                SetPrecision(numberPicker.getValue());
-                            }
-                        });
-                        builder.setView(layout);
-                    } else {
-                        currentValue = GetPrecision();
-                        View layout = getLayoutInflater().inflate(R.layout.precision_dialog_v7, null);
-                        assert layout != null;
-                        final TextView textView = (TextView) layout.findViewById(R.id.textView);
-                        textView.setText("0.123456".subSequence(0, currentValue + 2));
-                        final SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seekBar);
-                        seekBar.setMax(MAX_PRECISION - MIN_PRECISION);
-                        seekBar.setProgress(currentValue - 1);
-                        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                            @Override
-                            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                                textView.setText("0.123456".subSequence(0, i + 3));
-                                SetPrecision(i + 1);
-                            }
-
-                            @Override
-                            public void onStartTrackingTouch(SeekBar seekBar) {
-
-                            }
-
-                            @Override
-                            public void onStopTrackingTouch(SeekBar seekBar) {
-
-                            }
-                        });
-                        builder.setView(layout);
-                    }
-                    builder.show();
-                    break;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        switch (item.getItemId()) {
+            case R.id.menu_item_set_precision:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setIcon(R.drawable.icon_change_precision);
+                int currentValue = GetPrecision();
+                View layout = getLayoutInflater().inflate(R.layout.precision_dialog, null);
+                assert layout != null;
+                final SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seekBar);
+                final TextView textView = (TextView) layout.findViewById(R.id.textView);
+                seekBar.setMax(MAX_PRECISION - MIN_PRECISION);
+                seekBar.setProgress(currentValue - 1);
+                PrecisionChanger listener = new PrecisionChanger(textView, currentValue);
+                seekBar.setOnSeekBarChangeListener(listener);
+                builder.setTitle(getResources().getString(R.string.text_set_precision_item))
+                        .setPositiveButton(getResources().getString(R.string.text_ok_button),
+                                listener)
+                        .setNegativeButton(getResources().getString(R.string.text_cancel_button), null);
+                textView.setText("0.123456789123456789".subSequence(0, currentValue + 2));
+                builder.setView(layout);
+                builder.show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

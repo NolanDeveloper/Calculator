@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0.0"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        style="@style/TextAppearance.AppCompat.Base.CompactMenu.Dialog" />
+
+    <SeekBar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/numberPicker" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/text_precision"
-            android:id="@+id/textView"
-            android:layout_gravity="center_vertical" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:progress="0"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
 
 </LinearLayout>
