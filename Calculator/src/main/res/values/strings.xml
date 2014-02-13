@@ -8,4 +8,8 @@
     <string name="text_ok_button">OK</string>
     <!-- Precision dialog -->
     <string name="text_precision">digits after point</string>
+    <!-- Calculator messages -->
+    <string name="text_wrong_argument">wrong argument</string>
+    <string name="text_too_long_value">too long value</string>
+    <string name="text_infinity">impossible</string>
 </resources>

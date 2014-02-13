@@ -17,12 +17,12 @@ import java.math.RoundingMode;
 @SuppressWarnings("ConstantConditions")
 public final class Calculator implements OnClickListener {
 
-    private static final int MAX_NUMBER_LENGTH = 30;
-    private static final CharSequence WRONG_ARGUMENT_TEXT = "wrong argument";
-    private static final CharSequence TOO_LONG_VALUE_TEXT = "too long value";
-    private static final CharSequence INFINITY_TEXT = "∞";
+    private int MAX_NUMBER_LENGTH = 30;
+    private final CharSequence WRONG_ARGUMENT_TEXT;
+    private final CharSequence TOO_LONG_VALUE_TEXT;
+    private final CharSequence INFINITY_TEXT;
 
-    private static BigDecimal MaxNumber;
+    private static BigDecimal _maxNumber;
 
     private static class ZeroDivisionException extends ArithmeticException {
     }
@@ -104,11 +104,16 @@ public final class Calculator implements OnClickListener {
 
     public Calculator(TextView numberTextView, Activity activity) {
         super();
-        if (MaxNumber == null) {
+
+        WRONG_ARGUMENT_TEXT = activity.getResources().getString(R.string.text_wrong_argument);
+        TOO_LONG_VALUE_TEXT = activity.getResources().getString(R.string.text_too_long_value);
+        INFINITY_TEXT = activity.getResources().getString(R.string.text_infinity);
+
+        if (_maxNumber == null) {
             String maxNumber = "";
             for (int i = 0; i < MAX_NUMBER_LENGTH; i++)
                 maxNumber += '9';
-            MaxNumber = new BigDecimal(maxNumber);
+            _maxNumber = new BigDecimal(maxNumber);
         }
         _activity = activity;
         _numberTextView = numberTextView;
@@ -228,7 +233,7 @@ public final class Calculator implements OnClickListener {
                 break;
             case POW:
                 if (_leftArgument.compareTo(round(
-                        BigDecimal.valueOf(Math.pow(MaxNumber.doubleValue(), 0.5)))) > 0 &&
+                        BigDecimal.valueOf(Math.pow(_maxNumber.doubleValue(), 0.5)))) > 0 &&
                         rightArgument.compareTo(BigDecimal.valueOf(2)) > 0)
                     throw new TooLongValueException();
                 else {
