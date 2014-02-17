@@ -6,6 +6,8 @@
     <!-- Global dialog items -->
     <string name="text_cancel_button">Отмена</string>
     <string name="text_ok_button">ОК</string>
+    <string name="text_no_button">Нет</string>
+    <string name="text_rate_dialog">Пожалуйста оцените нас</string>
     <!-- Calculator messages -->
     <string name="text_wrong_argument">некорректно</string>
     <string name="text_too_long_value">очень большое число</string>
