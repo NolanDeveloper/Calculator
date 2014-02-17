@@ -157,8 +157,16 @@ public final class Calculator implements OnClickListener {
             return len - (value.toString().charAt(0) == '-' ? 1 : 0);
     }
 
+    private static int GetLength(String value) {
+        int len = value.replace(" ", "").length();
+        if (len == 0)
+            return 0;
+        else
+            return len - (value.charAt(0) == '-' ? 1 : 0);
+    }
+
     private static int GetLength(TextView value) {
-        int len = value.getText().toString()/*.replace(" ", "*")*/.length();
+        int len = value.getText().toString().replace(" ", "").length();
         if (len == 0)
             return 0;
         else
@@ -170,7 +178,7 @@ public final class Calculator implements OnClickListener {
     }
 
     private BigDecimal round(BigDecimal number) {
-        return number.setScale(_precision, RoundingMode.HALF_UP);
+        return new BigDecimal(StripTailingZeros(number.setScale(_precision, RoundingMode.HALF_UP).toString()));
     }
 
     private static boolean IsInteger(BigDecimal number) {
@@ -190,7 +198,7 @@ public final class Calculator implements OnClickListener {
             if (c == '.')
                 _numberTextView.setText(_numberTextView.getText().toString() + c);
             else
-                SetValue(new BigDecimal(_numberTextView.getText().toString().replace(" ", "") + c));
+                SetValue(_numberTextView.getText().toString().replace(" ", "") + c);
         }
     }
 
@@ -206,27 +214,58 @@ public final class Calculator implements OnClickListener {
     }
 
     private void SetValue(BigDecimal value) throws TooLongValueException {
-        if (value.compareTo(BigDecimal.valueOf(0)) == 0)
+        SetValue(value.toString());
+    }
+
+    private String StripTailingZeros(String value) {
+        if (value.compareTo("0") == 0) {
+            return value;
+        } else if (value.contains(".")) {
+            String[] number = value.split("\\.");
+            if (number[0].compareTo("0") != 0)
+                for (int i = 0; i < number[0].length(); i++)
+                    if (number[0].charAt(i) != '0') {
+                        number[0] = number[i].substring(i, number[0].length());
+                        break;
+                    }
+            for (int i = number[1].length() - 1; i >= 0; i--)
+                if (number[1].charAt(i) != '0') {
+                    number[1] = number[1].substring(0, i + 1);
+                    return number[0] + '.' + number[1];
+                }
+            return number[0];
+        } else {
+            for (int i = 0; i < value.length(); i++)
+                if (value.charAt(i) != '0') {
+                    value = value.substring(i, value.length());
+                    break;
+                }
+            return value;
+        }
+    }
+
+    private void SetValue(String value) throws TooLongValueException {
+        BigDecimal devValue = new BigDecimal(value);
+        if (value.compareTo("0") == 0)
             SetZero();
         else if (GetLength(value) > MAX_NUMBER_LENGTH)
             throw new TooLongValueException();
         else {
-            value = value.stripTrailingZeros();
-            if (IsInteger(value)) {
-                String number = value.toBigInteger().toString();
-                if (number.length() > 3) {
+            value = devValue.toString();
+            if (IsInteger(devValue)) {
+                if (value.length() > 3) {
                     String newText;
                     int i;
-                    newText = number.substring(number.length() - 3, number.length());
-                    for (i = number.length() - 6; i > 0; i -= 3)
-                        newText = number.substring(i, i + 3) + ' ' + newText;
+                    newText = value.substring(value.length() - 3, value.length());
+                    for (i = value.length() - 6; i > 0; i -= 3)
+                        newText = value.substring(i, i + 3) + ' ' + newText;
                     if (i > -3)
-                        newText = number.substring(0, i + 3) + ' ' + newText;
+                        newText = value.substring(0, i + 3) + ' ' + newText;
                     _numberTextView.setText(newText);
                 } else
-                    _numberTextView.setText(number);
+                    _numberTextView.setText(value);
             } else {
-                String integer = value.toBigInteger().toString();
+                String integer = value.split("\\.")[0];
                 String newInteger;
                 int i;
 
@@ -239,7 +278,7 @@ public final class Calculator implements OnClickListener {
                 } else
                     newInteger = integer;
 
-                String real = value.toString().split("\\.")[1];
+                String real = value.split("\\.")[1];
                 String newReal;
 
                 if (real.length() > 3) {
@@ -251,9 +290,7 @@ public final class Calculator implements OnClickListener {
                 } else
                     newReal = real;
 
-
                 _numberTextView.setText(newInteger + '.' + newReal);
-                _numberTextView.getEllipsize();
             }
         }
     }
@@ -356,40 +393,40 @@ public final class Calculator implements OnClickListener {
                         AddSymbol('.');
                     break;
                 case R.id.buttonPlus:
+                    _leftArgument = Calculate();
                     if (_currentState == States.GET_NUMBER) {
-                        _leftArgument = Calculate();
                         SetValue(_leftArgument);
                         _currentState = States.GET_OPERATION;
                     }
                     _currentOperation = Operations.PLUS;
                     break;
                 case R.id.buttonMinus:
+                    _leftArgument = Calculate();
                     if (_currentState == States.GET_NUMBER) {
-                        _leftArgument = Calculate();
                         SetValue(_leftArgument);
                         _currentState = States.GET_OPERATION;
                     }
                     _currentOperation = Operations.MINUS;
                     break;
                 case R.id.buttonMul:
+                    _leftArgument = Calculate();
                     if (_currentState == States.GET_NUMBER) {
-                        _leftArgument = Calculate();
                         SetValue(_leftArgument);
                         _currentState = States.GET_OPERATION;
                     }
                     _currentOperation = Operations.MUL;
                     break;
                 case R.id.buttonDiv:
+                    _leftArgument = Calculate();
                     if (_currentState == States.GET_NUMBER) {
-                        _leftArgument = Calculate();
                         SetValue(_leftArgument);
                         _currentState = States.GET_OPERATION;
                     }
                     _currentOperation = Operations.DIV;
                     break;
                 case R.id.buttonPow:
+                    _leftArgument = Calculate();
                     if (_currentState == States.GET_NUMBER) {
-                        _leftArgument = Calculate();
                         SetValue(_leftArgument);
                         _currentState = States.GET_OPERATION;
                     }

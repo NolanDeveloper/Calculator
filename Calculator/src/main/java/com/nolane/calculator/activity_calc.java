@@ -70,7 +70,7 @@ public class activity_calc extends Activity {
 
     private void SetPrecision(int n) {
         assert (n >= MIN_PRECISION && n <= MAX_PRECISION);
-        getPreferences(MODE_PRIVATE).edit().putInt("precision", 3).commit();
+        getPreferences(MODE_PRIVATE).edit().putInt("precision", n).commit();
         _calc.SetPrecision(n);
     }
 
