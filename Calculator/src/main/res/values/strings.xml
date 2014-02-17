@@ -6,6 +6,8 @@
     <!-- Global dialog items -->
     <string name="text_cancel_button">Cancel</string>
     <string name="text_ok_button">OK</string>
+    <string name="text_no_button">No</string>
+    <string name="text_rate_dialog">Please rate us</string>
     <!-- Calculator messages -->
     <string name="text_wrong_argument">wrong argument</string>
     <string name="text_too_long_value">too long value</string>

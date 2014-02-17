@@ -3,6 +3,8 @@ package com.nolane.calculator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 public class activity_calc extends Activity {
     private static final int MAX_PRECISION = 10;
     private static final int MIN_PRECISION = 1;
+
+    private static final String IS_ALREDY_RATED_FLAG = "is alredy rated";
 
     private static Calculator _calc;
 
@@ -52,6 +56,29 @@ public class activity_calc extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        if (!getPreferences(MODE_PRIVATE).getBoolean(IS_ALREDY_RATED_FLAG, false)) {
+            getPreferences(MODE_PRIVATE).edit().putBoolean(IS_ALREDY_RATED_FLAG, true).commit();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.text_rate_dialog)
+                    .setPositiveButton(R.string.text_ok_button, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(R.string.text_no_button, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            onBackPressed();
+                        }
+                    });
+            builder.show();
+        } else
+            super.onBackPressed();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
     }
@@ -64,7 +91,6 @@ public class activity_calc extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        /* ... */
         return super.onPrepareOptionsMenu(menu);
     }
 
